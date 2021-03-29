@@ -1,0 +1,35 @@
+1. Navigating Directories and Listing Files
+
+1) guru라는 계정으로 로그인해서 현재 작업디렉토리가 어디인지 확인하시오
+$ cd
+$ pwd
+
+2) /home/guru/ 디렉토리에서 root (/) directory로 이동하고, / 디렉토리에 있는 파일을 확인하시오.
+$ cd /
+$ ls
+
+3) 특정 디렉토리에 어떤 파일이 있는지 확인해봅시다.
+$ cd /usr/share/man/
+$ cd man1/
+$ ls g*
+
+4) /etc 디렉토리에 g로 시작되는 디렉토리의 정보를 확인하려고 한다. 어떻게 봐야할까?
+$ cd /etc/
+$ ls -d g*
+
+
+5) 다시 guru의 홈디렉토리로 이동하려고 한다. 방법은? 아래 4가지 명령중 하나를 실행봅시다.
+$ cd
+$ cd ~
+$ cd /home/guru/
+$ cd ../../home/guru/
+
+6) 현재 디렉토리의 파일 목록중 hidden 파일을 포함하여 모두 보고자 한다.
+$ ls -a
+
+
+7) 특수문자를 포함한 파일을 만들고 싶다. 어떻게 만들어야하나?
+$ touch file1
+$ touch file{2..5}
+$ touch '*test file*'
+$ ls

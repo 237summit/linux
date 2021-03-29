@@ -1,0 +1,95 @@
+3. File and Directory Ownership and Permissions
+1) super user인 root로 계정을 전환하자.
+$ su -
+Password: makeitso
+
+2) 다음가 같이 team1 그룹을 만들고, team1그룹에 속하는 사용자 user1, user2를 생성하자.
+# groupadd team1
+# useradd -m user1 -G team1
+# useradd -m user2 -G team1
+# id user1
+# id user2
+
+3) user1 계정으로 전환하자.
+# su - user1
+$ id -un
+user1
+
+4) user1 계정으로 data디렉토리를 만들고, file 4개를 생성한다. data디렉토리와 file1~4 파일의 소유자는 어떻게 되나?
+$ chmod 775 /home/user1
+$ mkdir -m 775 data
+$ cd data/
+$ touch file{1..4}
+$ ls -l
+. . . output omitted . . .
+
+5) 앞서 만든 data디렉토리의 파일들을 team1 그룹의 user1 뿐만 아니라 user2도 함께 공유할수 있도록 구성하고 싶다. 소유권을 바꿔주자.
+$ chgrp -R team1 ./*
+$ chmod 660 *
+$ ls -l
+
+6) user2 사용자가 파일 수정 가능한지 알아보자.
+$ exit
+# su - user2
+$ id
+user2
+$ pwd
+
+7) user2 사용자는 user1이 만든 공유 디렉토리 data에 접근하고자 한다. 아래 명령이 성공할까?
+$ cd ~user1/data
+
+실패한다면? 왜 그런가?
+접근 할수 있도록 구성을 바꾸자.
+
+
+6) shell 스크립트 파일을 만들어서 실행할수 있도록 권한을 할당해보자.
+$ cd
+$ mkdir scripts; cd scripts
+
+$ echo -e '#!/bin/sh\necho hello' > hello.sh
+$ ls -l hello.sh
+실행 퍼미션이 있나?
+
+7) 모든 파일은 실행퍼미션이 있어야 실행된다. 퍼미션을 바꿔보자.
+$ chmod 750 hello.s
+$ ls -l
+
+소유 그룹도 바꿔보자
+$ chgrp team1 hello.sh
+$ ls -l hello.sh
+-rwxr-x--- 1 user2 team1 21 May 10 12:04 hello.sh
+
+실행되는가?
+$ ./hello.sh
+hello
+
+8) script 디렉토리에 team1 그룹의 사용자들이 모두 접근 가능하도록 홈디렉토리의 퍼미션부터 풀어주자.
+$ ls -ld ~
+$ chgrp team1 ~
+$ chmod g+x ~
+$ ls -ld ~
+
+9) 이제 team1 그룹의 사용자인 user2가 user1의 홈디렉토리 접근 가능한지 알아보자.
+$ exit
+logout
+# su - user1
+$ cd user2
+
+10) user2의 홈디렉토리에 접근은 가능한데, 파일 목록도 볼수 있나?
+$ ls
+ls: cannot open directory .: Permission denied
+
+이 명령이 왜 실패하는걸까?
+$ ls -ld .
+
+그러면 scripts 디렉토리에는 접근되나? 된다면 왜 되는 것일까?
+$ cd scripts
+$ ls
+hello.sh
+$ ./hello.sh
+hello
+
+11) user2사용자 로그아웃하자.
+$ exit
+# exit
+

@@ -1,0 +1,35 @@
+[Redirection]
+1) 이 실습은 guru 사용자의 home directory에서 진행한다.
+$ cd
+
+2) ls -l 명령의 결과를 /home/guru/stdout.txt 파일에 저장하시오.
+$ ls -l >stdout.txt
+$ cat stdout.txt
+
+3) cat /etc/shadow 명령을 실행할 때 생성되는 오류 메시지를 stderr.txt 파일에 저장한다.
+$ cat /etc/shadow 2>stderr.txt
+$ cat stderr.txt
+cat: /etc/shadow: Permission denied
+
+4) both.txt 파일에는 STDOUT, STDERR의 모든 내용을 함께 저장한다.
+$ find /etc/ &>both.txt
+
+5) STDOUT 결과는 stdout2.txt에 STDERR 메시지를 stderr2.txt에 저장해보자.
+$ find /etc/ >stdout2.txt 2>stderr2.txt
+
+6) /var/log 파일의 목록을 앞서 생성한 stdout.txt 파일 뒤로 추가해보자.
+$ ls /var/log/ >>stdout.txt
+
+Pipes
+7) 실습을 위해 words 파일에서 23개 문자로 구성된 단어를 라인만 찾아 bigwords 파일에 저장한다.
+$ egrep ^.{23}$ /usr/share/dict/words > bigwords
+
+8) bigwords 파일의 콘텐츠를 다양한 방법으로 필터링하고 출력해보자.
+$ head bigwords
+$ tac bigwords | nl
+
+[Command Substitution]
+9) command 치환 기능을 두가지 방법으로 적용해보자.
+$ echo "Custom Time Stamp, Date `date +%x`, Time `date +%r`"
+$ echo "Custom Time Stamp, Date $(date +%x), Time $(date +%r)"
+

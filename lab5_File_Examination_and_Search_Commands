@@ -1,0 +1,26 @@
+File Examination & Search Commands
+1) 다음 명령을 이용해 파일의 처음 몇 줄과 마지막 몇 줄만 확인해보자.
+$ cd /usr/share/dict/
+$ head words
+$ tail words
+
+2) 아래의 다양한 명령을 이용해 words 파일을 확인해보자.
+$ cat words
+. . . output omitted . . .
+$ more words
+$ less words
+$ tac words
+
+3) find 명령을 이용해 guru 소유의 파일을 모두 찾아보자.
+$ find /home/guru -user guru
+
+4) locate  명령을 이용해서 등록된 filesystem에서 bash 문자열의 모든 인스턴스 찾아보자.
+$ locate bash
+
+
+5) wc를 사용하여 ~/.bash_history 파일의 단어수, 행 및 바이트 수를 계산해보자.
+$ wc -l /.bash_history
+$ wc -w /.bash_history
+$ wc -c /.bash_history
+$ wc /.bash_history
+

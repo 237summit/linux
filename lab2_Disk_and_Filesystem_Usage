@@ -1,0 +1,12 @@
+2. Disk and Filesystem Usage
+1) 현재 시스템의 디스크 사용량을 확인하고자 한다.
+$ df
+$ df -h
+
+2) 디스크 파티션이 아닌 특정 디렉토리의 사용량은 du 명령으로 확인해야한다.
+$ du /home/guru/
+$ du  -sh /home/guru/
+
+3) guru의 홈디렉토리의 사용량을 점검하려고 한다.
+$ cd
+$ du -h
