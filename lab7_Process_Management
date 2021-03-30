@@ -1,0 +1,25 @@
+1) 아래와 같은 fork-script 파일을 생성하시오.
+$ mkdir bin
+$ cd bin
+$ cat << END > fork-script
+#!/bin/sh
+renice -n 15 $$
+for i in $(seq $1); do
+     (sleep 3; cat /dev/zero > /dev/null) &
+done
+END
+
+2) 앞서 생성한 script가 실행가능하도록 퍼미션 조절하고, 동작되는지 확인하시오.
+$ chmod u+x fork-script
+$ ./fork-script 10
+
+3) 동작중인 fork-script 프로세스를 확인하자
+$ ps
+$ ps tree
+$ top
+
+4) 동작중인 fork-script 프로세스를 찾아 강제 종료하시오.
+$ ps -ef | grep fork-scippt
+$ pgrep -a fork-script
+$ killall fork-script
+$ pgrep -a fork-script
