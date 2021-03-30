@@ -4,6 +4,11 @@ $ cd /usr/share/dict/
 $ head words
 $ tail words
 
+문제: 
+- /etc/passwd 파일을 guru의 홈디렉토리에 복사하시오.
+- passwd 파일의 상위 1줄을 확인하여 root 사용자의 홈디렉토리가 어디인지 확인하시오.
+- passwd 파일의 마지막 10줄을 확인하여 reguler user 계정 리스트를 기록하시오.
+
 2) 아래의 다양한 명령을 이용해 words 파일을 확인해보자.
 $ cat words
 . . . output omitted . . .
@@ -11,19 +16,22 @@ $ more words
 $ less words
 $ tac words
 
+문제: cat 명령의 도움말을 보고 문자열을 출력할때 line 번호가 함께 출력되도록 만드시오.
+
 3) find 명령을 이용해 guru 소유의 파일을 모두 찾아보자.
 $ find /home/guru -user guru
 
 4) root 사용자 계정으로 empty 파일이면서 소유자가 postfix인 파일들을 찾아서 자세히 출력하시오
 $ sudo find /var -user postfix  -empty -ls
 
-5) /var 디렉토리에서 최근 3이내에 수정된 파일들을 찾아보시오.
+문제:
+- /var 디렉토리에서 최근 3이내에 수정된 파일들을 찾아보시오.
+- docker.sock 파일을 찾아서 출력하시오.
 
-6) docker.sock 파일을 찾아서 출력하시오.
-
-7) locate  명령을 이용해서 등록된 filesystem에서 bash 문자열의 모든 인스턴스 찾아보자.
+4) locate  명령을 이용해서 등록된 filesystem에서 bash 문자열의 모든 인스턴스 찾아보자.
 $ locate bash
 
+문제: 현시스템에 python이 설치되어 있는지 확인하시오. 설치되어 있지 않다면 yum install python 명령을 통해 설치하시오. 단, 설치는 root 권한이 필요.
 
 8) wc를 사용하여 ~/.bash_history 파일의 단어수, 행 및 바이트 수를 계산해보자.
 $ wc -l ~/.bash_history
