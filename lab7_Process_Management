@@ -3,8 +3,8 @@ $ mkdir bin
 $ cd bin
 $ cat << END > fork-script
 #!/bin/sh
-renice -n 15 $$
-for i in $(seq $1); do
+renice -n 15 \$\$
+for i in \$(seq \$1); do
      (sleep 3; cat /dev/zero > /dev/null) &
 done
 END
