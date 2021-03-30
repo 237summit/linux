@@ -14,13 +14,20 @@ $ tac words
 3) find 명령을 이용해 guru 소유의 파일을 모두 찾아보자.
 $ find /home/guru -user guru
 
-4) locate  명령을 이용해서 등록된 filesystem에서 bash 문자열의 모든 인스턴스 찾아보자.
+4) root 사용자 계정으로 empty 파일이면서 소유자가 postfix인 파일들을 찾아서 자세히 출력하시오
+$ sudo find /var -user postfix  -empty -ls
+
+5) /var 디렉토리에서 최근 3이내에 수정된 파일들을 찾아보시오.
+
+6) docker.sock 파일을 찾아서 출력하시오.
+
+7) locate  명령을 이용해서 등록된 filesystem에서 bash 문자열의 모든 인스턴스 찾아보자.
 $ locate bash
 
 
-5) wc를 사용하여 ~/.bash_history 파일의 단어수, 행 및 바이트 수를 계산해보자.
-$ wc -l /.bash_history
-$ wc -w /.bash_history
-$ wc -c /.bash_history
-$ wc /.bash_history
+8) wc를 사용하여 ~/.bash_history 파일의 단어수, 행 및 바이트 수를 계산해보자.
+$ wc -l ~/.bash_history
+$ wc -w ~/.bash_history
+$ wc -c ~/.bash_history
+$ wc ~/.bash_history
 
