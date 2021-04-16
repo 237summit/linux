@@ -1,0 +1,31 @@
+1. Network Hostname 변경하기
+Ubuntu 18.04에서 호스트이름을 변경하는 방법을 실습합니다.
+1) root계정으로 로그인 합니다.
+# whoami
+root
+
+2) vi 에디터를 실행해서 cloud.cfg 네트워크 구성파일을 열어서 15번째 라인의 preserve_hostname: false를 true로 수정합니다. 
+# vi /etc/cloud/cloud.cfg
+preserve_hostname: true
+
+3) vi 에디터를 실행해서 /etc/hostname 파일을 열어 호스트이름을 설정합니다.
+# vi /etc/hostname 
+smubuntu.example.com
+
+4) vi에디터를 실행해서 /etc/hosts 파일을 열어 다음과 같이 호스트 정보를 추가해서 넣어줍니다. 꼭 IP Address를 먼저 확인해서 넣어주세요.
+먼저 IP Address 확인
+# ip addr
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 02:00:33:90:00:43 brd ff:ff:ff:ff:ff:ff
+    inet 172.27.20.5/16 brd 172.27.255.255 scope global eth0
+
+저의 IP address는 172.27.20.5 입니다.
+여러분의 IP address는 달라요. 확인먼저하고.. /etc/hosts에 IP address를 넣어주어야합니다.
+vi 에디터를 실행해서 /etc/hosts파일 제일 끝 라인에 추가했어요. 아래 결과처럼.
+# vi /etc/hosts
+...
+ff02::3 ip6-allhosts
+172.27.20.5   smubuntu.example.com  smubuntu
+
+5) 마지막으로 서버 재부팅해줍니다. 방법은? KT 클라우드에 들어가서 서버 선택하고 [재시작] 하면 됩니다.
+
