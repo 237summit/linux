@@ -1,0 +1,87 @@
+1. KT Cloud환경에서 가상머신(Server) 생성하고 로그인+시스템 정보 보기
+
+1) login
+Xshell 이용해서 로그인
+
+#Tip
+	screen clear : Ctrl + l
+	command,user,file,hostname 자동완성 : <TAB>
+	command recall : 상향/하향 방향키  
+
+# 사용중인 Command Line Shell 정보 보기
+root@root:~# echo $SHELL
+/bin/bash
+
+
+# 로그인 사용자 정보
+root@root:~# whoami
+root
+
+# root 사용자의 패스워드 변경하기
+root@root:~# passwd 
+Enter new UNIX password:  <패스워드>
+Retype new UNIX password:  <패스워드>
+passwd: password updated successfully
+
+
+# 시스템 정보 보기
+# 운영체제 정보보기
+root@root:~# cat /etc/os-release 
+NAME="Ubuntu"
+VERSION="18.04.2 LTS (Bionic Beaver)"
+ID=ubuntu
+ID_LIKE=debian
+...
+
+# 아키텍쳐, 커널정보 보기
+root@root:~# uname -a
+Linux root 4.15.0-47-generic #50-Ubuntu SMP Wed Mar 13 10:44:52 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+
+# 메모리 정보 확인
+root@root:~# free -h
+              total        used        free      shared  buff/cache   available
+Mem:           1.9G        128M        358M        1.0M        1.5G        1.6G
+Swap:          2.0G        256K        2.0G
+
+# CPU 정보 보기
+root@root:~# lscpu 
+Architecture:        x86_64
+CPU op-mode(s):      32-bit, 64-bit
+Byte Order:          Little Endian
+CPU(s):              2
+...
+
+
+##네트워크 정보
+# IP Address 보기
+root@root:~# ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 02:00:0f:18:00:45 brd ff:ff:ff:ff:ff:ff
+    inet 172.27.20.11/16 brd 172.27.255.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::fff:fe18:45/64 scope link 
+       valid_lft forever preferred_lft forever
+
+#호스트 이름 보기
+root@root:~# hostname
+root
+
+
+# 하드디스크 정보
+root@root:~# lsblk
+...
+xvda    202:0    0   20G  0 disk 
+├─xvda1 202:1    0    1M  0 part 
+├─xvda2 202:2    0    2G  0 part [SWAP]
+├─xvda3 202:3    0    1G  0 part /boot
+└─xvda4 202:4    0   17G  0 part /
+
+
+#로그아웃
+root@root:~# exit
