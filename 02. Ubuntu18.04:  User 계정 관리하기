@@ -1,0 +1,103 @@
+02. Ubuntu18.04:  User 계정 관리하기
+
+1. Linux 계정 관리 소개
+계정 종류 : 
+	root : 시스템 운영자. 최고 관리자. 0
+	system account : 관리계정 - application 사용. 1-999, 60000~
+	account : 일반 유저 계정. 1000~60000
+
+계정 생성시 필요한 정보 :
+	username:password:UID(0-60000):GID:info:Login_DIR(/home/uid):Login_Shell(/bin/bash)
+	root:$1xxxxxxxxxxxx:0:0:root:/root:/bin/bash
+	smlee:!!:1000:1000:seongmi lee:/home/smlee:/bin/bash
+
+
+2. 계정생성에 관련된 환경설정 파일(/etc/default/useradd)을 수정
+root@root:~# whoami
+root
+
+root@root:~# vi /etc/default/useradd 
+SHELL=/bin/bash
+HOME		
+SKEL=/etc/skel
+CREATE_MAIL_SPOOL=yes
+
+
+3. 계정생성/정보보기/삭제
+	useradd  [OPTIONS]  username
+		id  username
+		password username
+	usermod  [OPTIONS]  username	
+	userdel -r username
+
+# 계정 생성하기
+root@smubuntu:~# useradd --help
+root@root:~# useradd -m -c "seongmi lee" smlee
+
+# 생성된 계정 정보보기
+root@root:~# id smlee
+uid=1000(smlee) gid=1000(smlee) groups=1000(smlee)
+
+##홈디렉토리 정보
+root@root:~# ls /home
+smlee
+root@root:~# ls -al /home/smlee
+total 20
+drwxr-xr-x 2 smlee smlee 4096 Apr 17 10:51 .
+drwxr-xr-x 3 root  root  4096 Apr 17 10:51 ..
+-rw-r--r-- 1 smlee smlee  220 Apr  4  2018 .bash_logout
+-rw-r--r-- 1 smlee smlee 3771 Apr  4  2018 .bashrc
+-rw-r--r-- 1 smlee smlee  807 Apr  4  2018 .profile
+
+## 계정의 팩스워드 정보보기
+root@root:~# grep smlee /etc/shadow
+smlee:!:18734:0:99999:7:::
+
+# 계정사용자 로그인 가능하도록 패스워드 할당하기
+root@root:~# passwd smlee
+Enter new UNIX password: <패스워드넣기>
+Retype new UNIX password: <패스워드 넣기>
+passwd: password updated successfully
+
+# 패스워드 잘 들었갔는지 확인하기
+root@root:~# grep smlee /etc/shadow
+smlee:$6$UW3NagOH$r4XLgNkJKoxWzTttD/mlJfC7rt2dXTV.zFesDNcD3NmXI179oBX0WUhKbVqpxlqA3cuSLTN0TJKgmfpurEeLJ0:18734:0:99999:7:::
+
+# 계정 정보 수정하기
+## 수정전 정보보기 - comment로 seongmi lee를 SEONGMI 로 변경할 예정
+root@root:~# grep smlee /etc/passwd
+smlee:x:1000:1000:seongmi lee:/home/smlee:/bin/bash
+
+## 계정 정보 수정하기
+root@root:~# usermod -c "SEONGMI" smlee
+
+## 수정된 내용 확인하기
+root@root:~# grep smlee /etc/passwd
+smlee:x:1000:1000:SEONGMI:/home/smlee:/bin/bash
+
+# 계정 삭제하기. -r 옵션을 넣어야 홈디렉토리와 메일 사서함까지 모두 삭제됨
+root@root:~# userdel -r smlee
+
+## 계정이 삭제되었음을 확인
+root@root:~# id smlee
+id: ‘smlee’: no such user
+
+
+4. 운영할 계정 생성 & 로그인
+guru계정을 생성하고, 패스워드 할당한 후에 원격 로그인 가능하도록 구성해본다.
+root@root:~#  useradd -m -c "guru user" guru
+root@root:~#  passwd guru
+
+root@root:~#  id guru
+uid=1000(guru) gid=1000(guru) groups=1000(guru)
+
+root@root:~#  exit
+
+# guru 계정으로 로그인하고 간단하게 guru 사용자의 정보보기
+guru@root:~$ whoami
+guru
+
+guru@root:~$ pwd
+/home/guru
+
+guru@root:~$ exit
