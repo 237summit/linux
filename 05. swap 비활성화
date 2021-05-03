@@ -1,0 +1,53 @@
+# 실습장비 : KT 클라우드 서버(Ubuntu 18.04)
+# 실습내용: swap 비활성화
+  - 쿠버네티스 설치시에 반드시 구성해야할 항목중 하나는 동작되는 swap을 비활성화 시키는 것이다.
+  - 리눅스 시스템에서 swap이 동작되지 않도록 구성해보자.
+
+========================
+1. 현재 동작중인 swap을 비활성화 시키기 위해 swapoff 명령을 사용한다.
+
+1. /etc/fstab  파일을 열어서 swap을 비활성화 시킨다.
+    swapon -s : 현재 스왑 적용 상태를 확인
+    swapoff -a : 운영중인 모든 스왑을 해제하기
+root@node1:~# swapon -s
+Filename    Type      Size    Used  Priority
+/dev/xvda2  partition 2097148 0     -2
+
+root@smubuntu:~# swapoff -a
+root@smubuntu:~# swapon -s
+root@smubuntu:~# 
+
+
+2. 다음번 부팅시에 스왑이 자동으로 활성화되지 않도록 구성해야한다. 아래와 같이 편집기를 열어서 swap 관련 된 라인 앞에 주석을 넣어준다.
+root@node1:~# vi /etc/fstab
+#UUID=2feb6a8f-952a-4b49-9e39-03b712dc75d3 none swap sw 0 0
+UUID=89a01c64-beb2-4de2-bd8b-7aa7146e41ee / ext4 defaults 0 0
+UUID=2cab3d8f-b495-43a2-9ea4-db1a02bce959 /boot ext4 defaults 0 0
+
+
+3. 보통은 2번까지만 작업하면 스왑은 비활성화 된다. 시스템을 리부팅해보고 swap 상태를 확인해보자.
+root@node1:~# reboot  또는 클라우드에서 시스템 다시시작
+
+리부팅된 후에 아래 명령으로 swap 상태확인
+root@node1:~# swapon -s
+<결과가 아무것도 나오지 않으면 극히 정상>
+
+
+=== 4번부터는 선택적 작업입니다.===========
+4. 위의 작업을 진행했는데 swap이 여전히 실행중으로 표시되며? systemd 환경에서 Swap 파티션을 unit으로 관리하고 있다는것이다.
+이때는 systemd의 스왑 unit의 기능을 해제해야 한다. 다음과 같이 swap을 해제하자.
+
+먼저 swap 유닛이 동작
+root@node1:~# systemctl list-unit-files --type swap
+UNIT FILE      STATE    
+dev-xvda2.swap generated
+
+1 unit files listed.
+
+
+5. 위의 결과 STATE에 generated나 loaded 메시지가 나온다면 mask 시켜서 비활성화 해야한다. 
+    - systmemctl mask service : 실행되지 못하도록 mask 설정. 실수로 실행해도 실행되지 않도록 보호됨.
+# systemctl mask dev-xvda2.swap
+Created symlink /etc/systemd/system/dev-xvda2.swap → /dev/null.
+
+
