@@ -1,0 +1,2 @@
+vim 의 auto indent mode 해제
+:set paste
