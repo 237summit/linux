@@ -44,4 +44,5 @@ $ sudo vim /etc/hosts
 127.0.0.1 localhost persistent-hostname
 
 $ sudo hostnamectl set-hostname persistent-hostname
+
 $ hostname
