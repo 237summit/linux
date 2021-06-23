@@ -40,3 +40,8 @@ PS1="\e[0;96;1m[\u@\h \W]\$ \e[m"
 
 ### AWS EC2(ubuntu)에서 호스트이름 변경하기
 https://aws.amazon.com/ko/premiumsupport/knowledge-center/linux-static-hostname/
+$ sudo vim /etc/hosts
+127.0.0.1 localhost persistent-hostname
+
+$ sudo hostnamectl set-hostname persistent-hostname
+$ hostname
