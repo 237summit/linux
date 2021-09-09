@@ -1,0 +1,43 @@
+# Exam-Server
+
+Step 1: Choose an Amazon Machine Image (AMI) : Ubuntu Server 20.04 LTS 의 [Select] 클릭
+
+Step 2: Choose an Instance Type : t2.micro 선택 후 - [Next: Configure Instance Details] 클릭
+
+Step 3: Configure Instance Details : 인스턴스 정보 확인 후 [Next: Add Storage] 클릭
+
+Step 4: Add Storage : 볼륨확인 후 [Next: Add Tags] 클릭
+
+Step 5: Add Tags : [Add Tag] -> Key: Name, Value: Exam-Sever 입력 후 [Next: Configure Security]
+
+Step 6: Configure Security Group
+[Add Rule] - Type: HTTP, Source: Anywhere 
+Security group name: sg_exam-server, Description: Support remote login to Linux exam server
+[Review and Launch]
+
+Step 7: Review Instance Launch : [Launch]
+Create a new key pair
+생성될 EC2 인스턴스에서 사용할 키 쌍(Key Pair) 생성하고 다운로드합니다.
+Key pair name: YOURNAME-key
+Download Key Pair 버튼을 클릭하여 생성된 키 쌍을 다운로드 ->  k8s 디렉토리에 저장
+[Launch Instances] - [view Instances
+
+LAB : AWSLinux - 인스턴스 만들기
+다음의 조건에 맞는 EC2 instance를 생성하시오.
+Step 1: Choose an Amazon Machine Image (AMI) : Amazon Linux 2 AMI - [Select]
+
+Step 2: Choose an Instance Type : t2.micro 선택 후 [Next]
+
+Step 3: Configure Instance Details : [Next]
+
+Step 4: Add Storage : [Next]
+
+Step 5: Add Tags : [Add Tag] - Key: Name, Value: Devel-Server - [Next]
+
+Step 6: Configure Security Group
+	Security group name: Select an existing security group - sg_exam_server 선택
+
+Step 7: Review Instance Launch : [Launch]
+Choose an existing key pair – YOURNAME-key 선택
+
+XShell로 로그인
