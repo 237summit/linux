@@ -10,6 +10,7 @@ NETMASK=255.255.255.0
 GATEWAY=10.0.0.254
 DNS1=168.126.63.1
 DNS2=8.8.8.8
+<Ctrl>+<d>
 
 # systemctl restart network
 
@@ -30,5 +31,31 @@ DNS2=8.8.8.8
 
 # cat > /etc/hostname 
 centos7-1.example.com
+<Ctrl>+<d>
 
 # reboot
+
+--- Clone ---
+
+# cat > /etc/sysconfig/network-scripts/ifcfg-ens33 
+TYPE=Ethernet
+BOOTPROTO=static
+NAME=ens33
+DEVICE=ens33
+ONBOOT=yes
+IPADDR=10.0.0.2
+NETMASK=255.255.255.0
+GATEWAY=10.0.0.254
+DNS1=168.126.63.1
+DNS2=8.8.8.8
+<Ctrl>+<d>
+
+# cat > /etc/hostname 
+centos7-2.example.com
+<Ctrl>+<d>
+
+# systemctl restart network
+
+전원 껐다 키기
+- 로그인후 
+# ip addr
